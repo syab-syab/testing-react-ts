@@ -3,8 +3,9 @@ import Header from './components/Header';
 import { Footer } from './components/Footer';
 // import Chart from './components/Chart';
 import Home from './components/Home';
-import Other from './components/Other';
+import Example from './components/Example';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import testData from './data/test-data.json'
 
 // [ToDo]
 // ・ローカルストレージ
@@ -13,18 +14,27 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // ・チェックボタン
 
 function App() {
-  localStorage.setItem("App", "App.tsx")
+
+  const testTask = testData['test-data']
+  localStorage.setItem("test-task", JSON.stringify(testTask))
+  const getTask = localStorage.getItem("test-task")
+  // getTaskをJSON.parseするとエラー発生
+
+  const tagName = testData['default-tag']
+  console.log(tagName)
 
   return (
     <div className="App">
       <Header />
       <h2>React TypeScript test</h2>
+
       <BrowserRouter>
-      <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/other" element={<Other />} />
+          <Route path="/example" element={<Example />} />
         </Routes>
       </BrowserRouter>
+
       <Footer />
     </div>
   );

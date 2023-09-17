@@ -1,10 +1,16 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Home = () => {
   localStorage.setItem('home', 'home')
 
   return (
-    <div>Home</div>
+    <div>
+      <p>Home</p>
+      <Link to="/example">
+        Example
+      </Link>
+    </div>
   )
 }
 
