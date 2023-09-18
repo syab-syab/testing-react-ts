@@ -15,13 +15,29 @@ import testData from './data/test-data.json'
 
 function App() {
 
-  const testTask = testData['test-data']
-  localStorage.setItem("test-task", JSON.stringify(testTask))
-  const getTask = localStorage.getItem("test-task")
-  // getTaskをJSON.parseするとエラー発生
+  type Task = {
+    id: number
+    content: string
+    dueDate: string
+    check: boolean
+  }
 
-  const tagName = testData['default-tag']
-  console.log(tagName)
+  const testTask: Array<Task> = testData['test-data']
+
+
+  localStorage.setItem("test-task", JSON.stringify(testTask))
+  const getTask: any  = localStorage.getItem("test-task")
+
+  console.log(getTask, typeof(getTask))
+
+  const modiTask: Array<Task> = JSON.parse(getTask)
+
+  console.log(modiTask)
+
+  const test = modiTask.filter(e => e.id === 1)
+
+  console.log(test[0].content)
+
 
   return (
     <div className="App">

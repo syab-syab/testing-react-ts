@@ -3,71 +3,32 @@
     {
       "id": 1,
       "content": "夕飯の買い物",
-      "due-date": "",
-      "tag": "食事",
+      "dueDate": "",
       "check": false
     },
     {
       "id": 2,
       "content": "資料作成",
-      "due-date": "",
-      "tag": "ビジネス",
+      "dueDate": "",
       "check": false
     },
     {
       "id": 3,
       "content": "筋トレ",
-      "due-date": "",
-      "tag": "運動",
+      "dueDate": "",
       "check": false
     },
     {
       "id": 4,
       "content": "映画鑑賞",
-      "due-date": "",
-      "tag": "趣味",
+      "dueDate": "",
       "check": false
     },
     {
       "id": 5,
       "content": "0時に就寝",
-      "due-date": "",
-      "tag": "習慣",
+      "dueDate": "",
       "check": false
-    }
-  ],
-  "default-tag": [
-    {
-      "id": 1,
-      "tag-name": "ビジネス"
-    },
-    {
-      "id": 2,
-      "tag-name": "勉強"
-    },
-    {
-      "id": 3,
-      "tag-name": "趣味"
-    },
-    {
-      "id": 4,
-      "tag-name": "食事"
-    },
-    {
-      "id": 5,
-      "tag-name": "運動"
-    },
-    {
-      "id": 6,
-      "tag-name": "交際"
-    },
-    {
-      "id": 7,
-      "tag-name": "習慣"
-    },
-    {
-      "id": 8,
-      "tag-name": "その他"
     }
   ]
 }
