@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { Task, AllTask } from '../types/All.types'
+import createUnixTime from '../functions/createUnixTime';
 
 
 const Home = (props: AllTask) =>  {
@@ -9,19 +10,13 @@ const Home = (props: AllTask) =>  {
 
   localStorage.setItem('home', 'home')
 
-  console.log(tasks)
+  // console.log(tasks)
 
   // 削除ボタンでtasks削除
   const handleDelete = (id: number) => {
     const newTasks = tasks.filter((t) => t.id !== id)
-    console.log(newTasks)
+    // console.log(newTasks)
     setTasks(newTasks)
-  }
-
-  // 一意性のあるidを生成
-  const createId = (): number => {
-    const date = new Date()
-    return date.getTime()
   }
 
 
@@ -31,12 +26,14 @@ const Home = (props: AllTask) =>  {
 
     // 新しいTaskを作成
     const newTask: Task = {
-      id: createId(),      
+      // id: createId(),
+      id: createUnixTime(),
       content: inputValue,
       dueDate: "",
       check: false,
     };
 
+    // スプレッド構文
     setTasks([newTask, ...tasks])
     setInputValue("")
   }
@@ -47,11 +44,24 @@ const Home = (props: AllTask) =>  {
     setInputValue(e.target.value);
   }
 
+  // checkの値を編集
+  const handleCheck = (id: number, check: boolean) => {
+    const newTasks = tasks.map((t) => {
+      if (t.id === id) {
+        t.check = !check
+      }
+      return t
+    })
+
+    setTasks(newTasks)
+  }
+
   return (
     <div>
       <p>Home</p>
       <div>
         {/* 新しいTaskの作成フォーム */}
+        {/* [Todo]期日を設定する項目も作成する */}
         <form onSubmit={(e) => handleSubmit(e)}>
           <input
             type="text"
@@ -69,21 +79,21 @@ const Home = (props: AllTask) =>  {
       <Link to="/example">
         Example
       </Link>
-      
-        {
-          // props.tasks.map(task => {
-            tasks.map(task => {
-            // return 付けないとエラー発生するから注意
-            return (
-            <p key={task.id}>
-              <input type="checkbox" />
-                {task.content}
-                {/* tsだと () => method の形にしないとエラーが出る */}
-                <input type='button' value="del" onClick={() => handleDelete(task.id)} />
-            </p>
-            )
-          })
-        }
+      {/* tasksを列挙 */}
+      {/* [ToDo]期日が設定してあるものは色付きにする */}
+      {
+          tasks.map(task => {
+          // return 付けないとエラー発生するから注意
+          return (
+          <p key={task.id}>
+            <input type="checkbox" onChange={() => handleCheck(task.id, task.check)} />
+              <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
+              {/* tsだと () => method の形にしないとエラーが出る */}
+              <input type='button' value="del" onClick={() => handleDelete(task.id)} />
+          </p>
+          )
+        })
+      }
     </div>
   )
 }

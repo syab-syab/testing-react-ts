@@ -35,11 +35,6 @@ function App() {
   const modiTask: Array<Task> = JSON.parse(getTask)
   console.log(modiTask, typeof(modiTask))
 
-  // 個別に取り出すことが出来た
-  const test = modiTask.filter(e => e.id === 1)
-  console.log(test[0], typeof(test[0]))
-
-
 
   return (
     <div className="App">
