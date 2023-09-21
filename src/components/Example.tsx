@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Task, AllTask } from '../types/All.types'
 import createUnixTime from '../functions/createUnixTime';
 import testData from '../data/test-data.json'
+import SelectYear from './SelectYear';
+import SelectMonth from './SelectMonth';
+import SelectDate from './SelectDate';
 
 // const Example = (props: AllTask) => {
 const Example = () => {
@@ -106,9 +109,9 @@ const Example = () => {
             value={inputValue}
           />
           <br />
-          <select>
-            <option value="">2023</option>
-          </select>
+          <SelectYear />
+          <SelectMonth />
+          <SelectDate />
           <br />
           <input
             type="submit"
