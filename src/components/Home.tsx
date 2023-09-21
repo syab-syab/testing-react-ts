@@ -56,6 +56,16 @@ const Home = (props: AllTask) =>  {
     setTasks(newTasks)
   }
 
+  // 期日を表示
+  const dateAp = (unix: string) => {
+    if (!unix) {
+      return "無し"
+    }
+    const tmp = Number(unix)
+    const date = new Date(tmp)
+    return `${date.getFullYear()}年 ${date.getMonth()}月 ${date.getDate()}日`
+  }
+
   return (
     <div>
       <p>Home</p>
@@ -69,6 +79,11 @@ const Home = (props: AllTask) =>  {
             className="inputText"
             value={inputValue}
           />
+          <br />
+          <select>
+            <option value="">2023</option>
+          </select>
+          <br />
           <input
             type="submit"
             value="作成"
@@ -80,16 +95,17 @@ const Home = (props: AllTask) =>  {
         Example
       </Link>
       {/* tasksを列挙 */}
-      {/* [ToDo]期日が設定してあるものは色付きにする */}
+      {/* [ToDo]期日が近づいているものは点滅、過ぎたものは灰色 */}
       {
           tasks.map(task => {
           // return 付けないとエラー発生するから注意
           return (
-          <p key={task.id}>
+          <p key={task.id} style={{background: task.dueDate ? "green" : "white"}}>
             <input type="checkbox" onChange={() => handleCheck(task.id, task.check)} />
               <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
               {/* tsだと () => method の形にしないとエラーが出る */}
-              <input type='button' value="del" onClick={() => handleDelete(task.id)} />
+              <input type='button' value="del" onClick={() => handleDelete(task.id)} /><br />
+              <span>期日: {dateAp(task.dueDate)}</span>
           </p>
           )
         })
