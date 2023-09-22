@@ -1,7 +1,8 @@
 import React from 'react'
+import { changeProps } from '../../types/All.types'
 
 // 後で改修
-const SelectHour = () => {
+const SelectHour = (props: changeProps) => {
   const hours = (): number[] => {
     let hour = []
     for (let i: number = 0; i < 24; i++) {
@@ -10,13 +11,9 @@ const SelectHour = () => {
     return hour
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value, "時")
-  }
-
   return (
     <div>
-      <select onChange={(e) => handleChange(e)}>
+      <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}>
         {/* hourの場合デフォルトで0 */}
         <option value="0">時を選択</option>
         {

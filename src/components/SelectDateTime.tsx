@@ -5,29 +5,60 @@ import SelectDate from './select/SelectDate';
 import SelectHour from './select/SelectHour';
 import SelectMinutes from './select/SelectMinutes';
 
-// このコンポーネントをExample.tsxのフォームを切り出したコンポーネントに
-// 入れる
+// このコンポーネントをExample.tsxのフォームを切り出したコンポーネントに入れる
+
+// [ToDo] 現在よりも過去の時間を設定した場合エラーを出す
 
 const SelectDateTime = () => {
-  const [year, setYear] = useState<number>()
-  const [month, setMonth] = useState<number>()
-  const [date, setDate] = useState<number>()
-  const [hour, setHour] = useState<number>(0)
-  const [minutes, setMinutes] = useState<number>(0)
+  const [year, setYear] = useState<string>('')
+  const [month, setMonth] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+  const [hour, setHour] = useState<string>('')
+  const [minutes, setMinutes] = useState<string>('')
+
+  // React.ChangeEvent<HTMLSelectElement>にしないとエラーを吐く
+  // <HTMLSelectElement>が多分重要
+
+  const handleChangeYear = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setYear(e.target.value)
+  }
+
+  const handleChangeMonth = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setMonth(e.target.value)
+  }
+
+  const handleChangeDate = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setDate(e.target.value)
+  }
+
+  const handleChangeHour = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setHour(e.target.value)
+  }
+
+  const handleChangeMinutes = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setMinutes(e.target.value)
+  }
+
+  console.log(year, month, date, hour, minutes)
+
 
   return (
     <div>
       {/* selectタグにdisabledを渡す */}
       {/* 年が未選択なら月を選ばせない */}
-      <SelectYear />
+      <SelectYear onChange={(e) => handleChangeYear(e)} appear='true' />
       {/* 月が未選択なら日を選ばせない */}
-      <SelectMonth />
+      {/* {
+        year &&
+        <SelectMonth onChange={(e) => handleChangeMonth(e)} />
+      } */}
+      <SelectMonth onChange={(e) => handleChangeMonth(e)} appear={year} />
       {/* 日が未選択なら時を選ばせない */}
-      <SelectDate />
+      <SelectDate onChange={(e) => handleChangeDate(e)} appear={month} />
       {/* 時が未選択なら分を選ばせない */}
-      <SelectHour />
+      <SelectHour onChange={(e) => handleChangeHour(e)} appear={date} />
       {/* 最低年月日まで必要 */}
-      <SelectMinutes />
+      <SelectMinutes onChange={(e) => handleChangeMinutes(e)} appear={hour}/>
     </div>
   )
 }

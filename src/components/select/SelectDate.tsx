@@ -1,8 +1,9 @@
 import React from 'react'
+import { changeProps } from '../../types/All.types'
 
 // 後で改修
 // 月やうるう年で変更
-const SelectDate = () => {
+const SelectDate = (props: changeProps) => {
   const days = (): number[] => {
     let days = []
     // 31日間=32, 30日間=31, 28日間=29, 29日間=30 
@@ -12,13 +13,9 @@ const SelectDate = () => {
     return days
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value, "日")
-  }
-
   return (
     <div>
-      <select onChange={(e) => handleChange(e)}>
+      <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true} >
         <option value="">日を選択</option>
         {
           days().map((d) => {

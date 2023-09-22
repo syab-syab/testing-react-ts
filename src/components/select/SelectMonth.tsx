@@ -1,13 +1,13 @@
 import React from 'react'
+import { changeProps } from '../../types/All.types'
+import { isDisabled } from '@testing-library/user-event/dist/utils'
+
 
 // 後で改修
-const SelectMonth = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value, "月")
-  }
+const SelectMonth = (props: changeProps) => {
   return (
     <div>
-      <select onChange={(e) => handleChange(e)}>
+      <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}>
         <option value="">月を選択</option>
         <option value="1">1月</option>
         <option value="2">2月</option>
