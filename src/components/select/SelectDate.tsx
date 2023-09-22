@@ -12,13 +12,17 @@ const SelectDate = () => {
     return days
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value, "日")
+  }
+
   return (
     <div>
-      <select>
+      <select onChange={(e) => handleChange(e)}>
         <option value="">日を選択</option>
         {
           days().map((d) => {
-            return <option key={d} value={d}>{d}</option>
+            return <option key={d} value={d}>{d}日</option>
           })
         }
       </select>

@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { Task, AllTask } from '../types/All.types'
 import createUnixTime from '../functions/createUnixTime';
 import testData from '../data/test-data.json'
-import SelectYear from './select/SelectYear';
-import SelectMonth from './select/SelectMonth';
-import SelectDate from './select/SelectDate';
-import SelectHour from './select/SelectHour';
-import SelectMinutes from './select/SelectMinutes';
+// import SelectYear from './select/SelectYear';
+// import SelectMonth from './select/SelectMonth';
+// import SelectDate from './select/SelectDate';
+// import SelectHour from './select/SelectHour';
+// import SelectMinutes from './select/SelectMinutes';
+import SelectDateTime from './SelectDateTime';
 
 // const Example = (props: AllTask) => {
 const Example = () => {
@@ -111,16 +112,7 @@ const Example = () => {
             value={inputValue}
           />
           <br />
-          {/* 年が未選択なら月を選ばせない */}
-          <SelectYear />
-          {/* 月が未選択なら日を選ばせない */}
-          <SelectMonth />
-          {/* 日が未選択なら時を選ばせない */}
-          <SelectDate />
-          {/* 時が未選択なら分を選ばせない */}
-          <SelectHour />
-          {/* 最低年月日まで必要 */}
-          <SelectMinutes />
+          <SelectDateTime />
           <br />
           <input
             type="submit"

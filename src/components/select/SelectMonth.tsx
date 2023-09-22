@@ -2,9 +2,12 @@ import React from 'react'
 
 // 後で改修
 const SelectMonth = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value, "月")
+  }
   return (
     <div>
-      <select>
+      <select onChange={(e) => handleChange(e)}>
         <option value="">月を選択</option>
         <option value="1">1月</option>
         <option value="2">2月</option>

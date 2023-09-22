@@ -11,9 +11,14 @@ const SelectYear = () => {
     }
     return years
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    console.log(e.target.value, "年")
+  }
+
   return (
     <div>
-      <select>
+      <select onChange={(e) => handleChange(e)}>
         <option value="">年を選択</option>
         {
           years().map((y) => {
