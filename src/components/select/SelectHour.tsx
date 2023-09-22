@@ -1,8 +1,12 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
+interface changeHour extends changeProps {
+  appear: string
+}
+
 // 後で改修
-const SelectHour = (props: changeProps) => {
+const SelectHour = (props: changeHour) => {
   const hours = (): number[] => {
     let hour = []
     for (let i: number = 0; i < 24; i++) {

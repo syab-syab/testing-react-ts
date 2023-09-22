@@ -13,7 +13,6 @@ export type TestStringMessage = {
   message: string
 }
 
-export type changeProps = {
-  appear: string
+export interface changeProps  {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }

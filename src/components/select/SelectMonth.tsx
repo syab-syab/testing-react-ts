@@ -1,10 +1,12 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
-import { isDisabled } from '@testing-library/user-event/dist/utils'
 
+interface changeMonth extends changeProps {
+  appear: string
+}
 
 // 後で改修
-const SelectMonth = (props: changeProps) => {
+const SelectMonth = (props: changeMonth) => {
   return (
     <div>
       <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}>

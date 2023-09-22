@@ -1,13 +1,48 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
+interface changeDate extends changeProps {
+  appear: string
+  year: string
+  month: string
+}
+
 // 後で改修
 // 月やうるう年で変更
-const SelectDate = (props: changeProps) => {
+const SelectDate = (props: changeDate) => {
+
+  const maxDay = (y: string, m: string): number => {
+    const intY = Number(y)
+    const intM = Number(m)
+    // 31日間=32, 30日間=31, 28日間=29, 29日間=30
+    switch (intM) {
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        return 32
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        return 31
+      // うるう年の求め方は厳密には違う
+      case 2:
+        if(intY % 4 === 0) {
+          return 30
+        }
+        return 29 
+    }
+    return 1
+  }
+  
   const days = (): number[] => {
     let days = []
-    // 31日間=32, 30日間=31, 28日間=29, 29日間=30 
-    for (let i: number = 0; i < 32; i++) {
+    const max: number = maxDay(props.year, props.month)
+    for (let i: number = 0; i < max; i++) {
       days.push(i)
     }
     return days

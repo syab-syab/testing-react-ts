@@ -1,8 +1,12 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
+interface changeMinutes extends changeProps {
+  appear: string
+}
+
 // 後で改修
-const SelectMinutes = (props: changeProps) => {
+const SelectMinutes = (props: changeMinutes) => {
   const minutes = (): number[] => {
     let minutes = []
     for (let i:number = 0; i < 60; i++) {

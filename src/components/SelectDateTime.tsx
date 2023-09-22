@@ -44,17 +44,12 @@ const SelectDateTime = () => {
 
   return (
     <div>
-      {/* selectタグにdisabledを渡す */}
       {/* 年が未選択なら月を選ばせない */}
-      <SelectYear onChange={(e) => handleChangeYear(e)} appear='true' />
+      <SelectYear onChange={(e) => handleChangeYear(e)} />
       {/* 月が未選択なら日を選ばせない */}
-      {/* {
-        year &&
-        <SelectMonth onChange={(e) => handleChangeMonth(e)} />
-      } */}
       <SelectMonth onChange={(e) => handleChangeMonth(e)} appear={year} />
       {/* 日が未選択なら時を選ばせない */}
-      <SelectDate onChange={(e) => handleChangeDate(e)} appear={month} />
+      <SelectDate onChange={(e) => handleChangeDate(e)} appear={month} year={year} month={month} />
       {/* 時が未選択なら分を選ばせない */}
       <SelectHour onChange={(e) => handleChangeHour(e)} appear={date} />
       {/* 最低年月日まで必要 */}
