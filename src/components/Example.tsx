@@ -3,12 +3,8 @@ import { Link } from "react-router-dom";
 import { Task, AllTask } from '../types/All.types'
 import createUnixTime from '../functions/createUnixTime';
 import testData from '../data/test-data.json'
-// import SelectYear from './select/SelectYear';
-// import SelectMonth from './select/SelectMonth';
-// import SelectDate from './select/SelectDate';
-// import SelectHour from './select/SelectHour';
-// import SelectMinutes from './select/SelectMinutes';
 import SelectDateTime from './SelectDateTime';
+import SubmitForm from './SubmitForm';
 
 // const Example = (props: AllTask) => {
 const Example = () => {
@@ -102,24 +98,12 @@ const Example = () => {
       <p>Example</p>
       <p>使用例</p>
       <div>
-        {/* 新しいTaskの作成フォーム */}
-        {/* [Todo]期日を設定する項目も作成する */}
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input
-            type="text"
-            onChange={(e) => handleChange(e)}
-            className="inputText"
-            value={inputValue}
-          />
-          <br />
-          <SelectDateTime />
-          <br />
-          <input
-            type="submit"
-            value="作成"
-            className="submitButton"
-          />
-        </form>
+        <SubmitForm
+          inputValue={inputValue}
+          onSubmit={(e) => handleSubmit(e)}
+          onChange={(e) => handleChange(e)}
+        />
+
       </div>
       <div style={{textAlign: "center", margin: "auto"}}>
       {
