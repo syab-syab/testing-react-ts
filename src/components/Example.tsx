@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-import { Task, AllTask } from '../types/All.types'
+import { Task } from '../types/All.types'
 import createUnixTime from '../functions/createUnixTime';
 import testData from '../data/test-data.json'
-import SelectDateTime from './SelectDateTime';
 import SubmitForm from './SubmitForm';
 
-// const Example = (props: AllTask) => {
 const Example = () => {
 
   // 必要ないかもしれんけど一応型定義
@@ -21,7 +19,9 @@ const Example = () => {
   // const modiTask: Array<Task> = JSON.parse(getTask)
   const modiTask: Array<Task> = JSON.parse(getTask)
 
+  // タスクのstate
   const [tasks, setTasks] = useState< Array<Task>>(modiTask)
+  // 追加されるタスクのstate
   const [inputValue, setInputValue] = useState<string>("");
 
   // 削除ボタンでtasks削除
@@ -81,7 +81,7 @@ const Example = () => {
   // 期日を過ぎているかどうか
   const checkDueDate = (val: string): boolean => {
     const tmp = Number(val)
-    const currentDateTime = new Date
+    const currentDateTime = new Date()
     // 期日を過ぎていない or 設定されていないなら true を返す
     if (tmp > currentDateTime.getTime() || val === "") {
       return true
@@ -103,7 +103,6 @@ const Example = () => {
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => handleChange(e)}
         />
-
       </div>
       <div style={{textAlign: "center", margin: "auto"}}>
       {

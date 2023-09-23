@@ -1,15 +1,14 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
-interface changeDate extends changeProps {
-  appear: string
+interface DateProps extends changeProps {
   year: string
   month: string
 }
 
 // 後で改修
 // 月やうるう年で変更
-const SelectDate = (props: changeDate) => {
+const SelectDate = (props: DateProps) => {
 
   const maxDay = (y: string, m: string): number => {
     const intY = Number(y)
@@ -50,7 +49,7 @@ const SelectDate = (props: changeDate) => {
 
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true} >
+      <select onChange={(e) => props.onChange(e)} disabled={props.month ? false : true} >
         <option value="">日を選択</option>
         {
           days().map((d) => {

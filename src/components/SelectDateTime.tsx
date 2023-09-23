@@ -46,14 +46,15 @@ const SelectDateTime = () => {
     <div>
       {/* 年が未選択なら月を選ばせない */}
       <SelectYear onChange={(e) => handleChangeYear(e)} />
+      {/* [ToDo]後でprops(appear)の名前変える */}
       {/* 月が未選択なら日を選ばせない */}
-      <SelectMonth onChange={(e) => handleChangeMonth(e)} appear={year} />
+      <SelectMonth onChange={(e) => handleChangeMonth(e)} year={year} />
       {/* 日が未選択なら時を選ばせない */}
-      <SelectDate onChange={(e) => handleChangeDate(e)} appear={month} year={year} month={month} />
+      <SelectDate onChange={(e) => handleChangeDate(e)} year={year} month={month} />
       {/* 時が未選択なら分を選ばせない */}
-      <SelectHour onChange={(e) => handleChangeHour(e)} appear={date} />
+      <SelectHour onChange={(e) => handleChangeHour(e)} date={date} />
       {/* 最低年月日まで必要 */}
-      <SelectMinutes onChange={(e) => handleChangeMinutes(e)} appear={hour}/>
+      <SelectMinutes onChange={(e) => handleChangeMinutes(e)} hour={hour}/>
     </div>
   )
 }

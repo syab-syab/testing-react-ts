@@ -1,12 +1,12 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
-interface changeHour extends changeProps {
-  appear: string
+interface HourProps extends changeProps {
+  date: string
 }
 
 // 後で改修
-const SelectHour = (props: changeHour) => {
+const SelectHour = (props: HourProps) => {
   const hours = (): number[] => {
     let hour = []
     for (let i: number = 0; i < 24; i++) {
@@ -17,7 +17,7 @@ const SelectHour = (props: changeHour) => {
 
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}>
+      <select onChange={(e) => props.onChange(e)} disabled={props.date ? false : true}>
         {/* hourの場合デフォルトで0 */}
         <option value="0">時を選択</option>
         {
