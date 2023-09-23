@@ -1,5 +1,6 @@
 import React from 'react'
 import SelectDateTime from './SelectDateTime'
+import { useState } from 'react'
 
 type SubmitProps = {
   inputValue: string
@@ -10,6 +11,19 @@ type SubmitProps = {
 // [ToDo]以下のものを受け取れるようにする
 // handleSubmit(e), handleChange(e), inputValue=state
 const SubmitForm = (props: SubmitProps) => {
+  const [year, setYear] = useState<string>('')
+  const [month, setMonth] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+  const [hour, setHour] = useState<string>('')
+  const [minutes, setMinutes] = useState<string>('')
+  
+  const handleChangeState = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    setState: React.Dispatch<React.SetStateAction<string>>
+  ): void => {
+    setState(e.target.value)
+  }
+
   return (
     <div>
       {/* 新しいTaskの作成フォーム */}
@@ -22,7 +36,11 @@ const SubmitForm = (props: SubmitProps) => {
           value={props.inputValue}
         />
         <br />
-        <SelectDateTime />
+        <SelectDateTime
+          states={[year, month, date, hour, minutes]}
+          setStates={[setYear, setMonth, setDate, setHour, setMinutes]}
+          onChange={handleChangeState}
+        />
         <br />
         <input
           type="submit"
