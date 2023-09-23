@@ -1,33 +1,21 @@
 import React from 'react'
 import SelectDateTime from './SelectDateTime'
-import { useState } from 'react'
 
 type SubmitProps = {
   inputValue: string
+  dateTimeStates: string[]
+  setDateTimeStates: React.Dispatch<React.SetStateAction<string>>[]
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChangeDateTimeState: (e: React.ChangeEvent<HTMLSelectElement>, setState: React.Dispatch<React.SetStateAction<string>>) => void
 }
 
 // [ToDo]以下のものを受け取れるようにする
-// handleSubmit(e), handleChange(e), inputValue=state
 const SubmitForm = (props: SubmitProps) => {
-  const [year, setYear] = useState<string>('')
-  const [month, setMonth] = useState<string>('')
-  const [date, setDate] = useState<string>('')
-  const [hour, setHour] = useState<string>('')
-  const [minutes, setMinutes] = useState<string>('')
-  
-  const handleChangeState = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-    setState: React.Dispatch<React.SetStateAction<string>>
-  ): void => {
-    setState(e.target.value)
-  }
 
   return (
     <div>
       {/* 新しいTaskの作成フォーム */}
-      {/* [Todo]期日を設定する項目も作成する */}
       <form onSubmit={(e) => props.onSubmit(e)}>
         <input
           type="text"
@@ -37,9 +25,22 @@ const SubmitForm = (props: SubmitProps) => {
         />
         <br />
         <SelectDateTime
-          states={[year, month, date, hour, minutes]}
-          setStates={[setYear, setMonth, setDate, setHour, setMinutes]}
-          onChange={handleChangeState}
+          states={[
+            props.dateTimeStates[0],
+            props.dateTimeStates[1],
+            props.dateTimeStates[2],
+            props.dateTimeStates[3],
+            props.dateTimeStates[4],
+          ]}
+          
+          setStates={[
+            props.setDateTimeStates[0],
+            props.setDateTimeStates[1],
+            props.setDateTimeStates[2],
+            props.setDateTimeStates[3],
+            props.setDateTimeStates[4],
+          ]}
+          onChange={props.onChangeDateTimeState}
         />
         <br />
         <input

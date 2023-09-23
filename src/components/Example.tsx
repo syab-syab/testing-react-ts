@@ -93,6 +93,22 @@ const Example = () => {
     }
   }
 
+  // --------------------- ここから期日関係 start --------------------- 
+  const [year, setYear] = useState<string>('')
+  const [month, setMonth] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+  const [hour, setHour] = useState<string>('')
+  const [minutes, setMinutes] = useState<string>('')
+
+  const handleChangeDateTimeState = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    setState: React.Dispatch<React.SetStateAction<string>>
+  ): void => {
+    setState(e.target.value)
+  }
+
+  // --------------------- ここまで期日関係 end -----------------------
+
   return (
     <div>
       <p>Example</p>
@@ -100,8 +116,11 @@ const Example = () => {
       <div>
         <SubmitForm
           inputValue={inputValue}
+          dateTimeStates={[year, month, date, hour, minutes]}
+          setDateTimeStates={[setYear, setMonth, setDate, setHour, setMinutes]}
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => handleChange(e)}
+          onChangeDateTimeState={handleChangeDateTimeState}
         />
       </div>
       <div style={{textAlign: "center", margin: "auto"}}>
