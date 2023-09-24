@@ -29,7 +29,7 @@ const SelectDateTime = (props: Props) => {
   return (
     <div>
       {/* 年が未選択なら月を選ばせない */}
-      <SelectYear onChange={(e) => props.onChange(e, props.setStates[0])} />
+      <SelectYear onChange={(e) => props.onChange(e, props.setStates[0])} year={props.states[0]}/>
       {/* 月が未選択なら日を選ばせない */}
       <SelectMonth onChange={(e) => props.onChange(e, props.setStates[1])} year={props.states[0]} />
       {/* 日が未選択なら時を選ばせない */}

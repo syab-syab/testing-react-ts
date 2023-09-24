@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { Task } from '../types/All.types'
 import createUnixTime from '../functions/createUnixTime';
+import createDueTime from '../functions/createDueTime';
 import testData from '../data/test-data.json'
 import SubmitForm from './SubmitForm';
 
@@ -21,38 +22,6 @@ const Example = () => {
 
   // タスクのstate
   const [tasks, setTasks] = useState< Array<Task>>(modiTask)
-  // 追加されるタスクのstate
-  const [inputValue, setInputValue] = useState<string>("");
-
-  // 削除ボタンでtasks削除
-  const handleDelete = (id: number): void => {
-    const newTasks = tasks.filter((t) => t.id !== id)
-    setTasks(newTasks)
-  }
-
-  // 新しいTaskの登録
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    // 新しいTaskを作成
-    const newTask: Task = {
-      id: createUnixTime(),
-      content: inputValue,
-      dueDate: "",
-      check: false,
-    };
-
-    // スプレッド構文
-    setTasks([newTask, ...tasks])
-    setInputValue("")
-    console.log(tasks)
-  }
-
-  // フォームの変更を検知
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    // console.log(e.target.value);
-    setInputValue(e.target.value);
-  }
 
   // checkの値を編集
   const handleCheck = (id: number, check: boolean): void => {
@@ -62,7 +31,6 @@ const Example = () => {
       }
       return t
     })
-
     setTasks(newTasks)
   }
 
@@ -73,10 +41,8 @@ const Example = () => {
     }
     const tmp = Number(unix)
     const date = new Date(tmp)
-    return `${date.getFullYear()}年 ${date.getMonth()}月 ${date.getDate()}日`
+    return `${date.getFullYear()}年 ${date.getMonth()}月 ${date.getDate()}日 ${date.getHours()}時 ${date.getMinutes()}分`
   }
-
-
 
   // 期日を過ぎているかどうか
   const checkDueDate = (val: string): boolean => {
@@ -108,6 +74,52 @@ const Example = () => {
   }
 
   // --------------------- ここまで期日関係 end -----------------------
+
+  // --------------------- ここから新タスク関係 start -----------------------
+  // 追加されるタスクのstate
+  const [inputValue, setInputValue] = useState<string>("");
+
+  // 削除ボタンでtasks削除
+  const handleDelete = (id: number): void => {
+    const newTasks = tasks.filter((t) => t.id !== id)
+    setTasks(newTasks)
+  }
+
+  // 新しいTaskの登録
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+
+    // 新しいTaskを作成
+    const newTask: Task = {
+      // 現在のUNIX時間ならidは被らない
+      id: createUnixTime(),
+      content: inputValue,
+      // [ToDo]期日を反映させる
+      dueDate: createDueTime([year, month, date, hour, minutes]),
+      check: false,
+    };
+
+    // スプレッド構文
+    setTasks([newTask, ...tasks])
+    setInputValue("")
+    console.log(tasks)
+
+    // 終わったら期日の各stateを初期化
+    setYear("")
+    setMonth("")
+    setDate("")
+    setHour("")
+    setMinutes("")
+  }
+
+  // フォームの変更を検知
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
+  }
+
+
+  // --------------------- ここまで新タスク関係 end -------------------------
+
 
   return (
     <div>

@@ -1,8 +1,12 @@
 import React from 'react'
 import { changeProps } from '../../types/All.types'
 
+interface YearProps extends changeProps {
+  year: string
+}
+
 // 後で改修
-const SelectYear = (props: changeProps) => {
+const SelectYear = (props: YearProps) => {
   const years = (): number[] => {
     const date = new Date()
     const year = date.getFullYear()
@@ -17,7 +21,7 @@ const SelectYear = (props: changeProps) => {
   return (
     <div>
       {/* <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}> */}
-      <select onChange={(e) => props.onChange(e)}>
+      <select onChange={(e) => props.onChange(e)} value={props.year}>
         <option value="">年を選択</option>
         {
           years().map((y) => {
