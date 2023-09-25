@@ -1,15 +1,167 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-// import { Task, AllTask } from '../types/All.types'
+import { Task } from '../types/All.types'
+import createUnixTime from '../functions/createUnixTime';
+import createDueTime from '../functions/createDueTime';
+// import testData from '../data/test-data.json'
+import SubmitForm from './SubmitForm';
 
 
-// const Home = (props: AllTask) =>  {
 const Home = () =>  {
 
+  // ----------------------- 念のためExample.tsxより --------------------
+  // 必要ないかもしれんけど一応型定義
+  // AllTaskにしたいけどエラーが出る
+  // const testTask: Array<Task> = testData['test-data']
+  // localStorage.setItem("test-task", JSON.stringify(testTask))
+
+  // string型だとエラーになるからやむを得ずanyにした
+  // const getTask: any  = localStorage.getItem("test-task")
+
+  // なぜこの型定義で成功したのかいまいちわかってないので後日チェック
+  // const modiTask: Array<Task> = JSON.parse(getTask)
+
+  // タスクのstate
+  // const [tasks, setTasks] = useState<Array<Task>>(modiTask)
+
+  // ----------------------- 念のためExample.tsxより --------------------
+
+  // タスクのstate
+  const [tasks, setTasks] = useState<Array<Task>>([])
+
+  // [ToDo] tasksをローカルストレージに保存できるようにする
+
+  // checkの値を編集
+  const handleCheck = (id: number, check: boolean): void => {
+    const newTasks = tasks.map((t) => {
+      if (t.id === id) {
+        t.check = !check
+      }
+      return t
+    })
+    setTasks(newTasks)
+  }
+
+  // 期日を表示
+  const dateAp = (unix: string): string => {
+    if (!unix) {
+      return "無し"
+    }
+    const tmp = Number(unix)
+    const date = new Date(tmp)
+    return `${date.getFullYear()}年 ${date.getMonth()}月 ${date.getDate()}日 ${date.getHours()}時 ${date.getMinutes()}分`
+  }
+
+  // 期日を過ぎているかどうか
+  const checkDueDate = (val: string): boolean => {
+    const tmp = Number(val)
+    const currentDateTime = new Date()
+    // 期日を過ぎていない or 設定されていないなら true を返す
+    if (tmp > currentDateTime.getTime() || val === "") {
+      return true
+    // 過ぎているなら false を返す
+    } else if (currentDateTime.getTime() >= tmp ) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+
+  // --------------------- ここから期日関係 start --------------------- 
+  const [year, setYear] = useState<string>('')
+  const [month, setMonth] = useState<string>('')
+  const [date, setDate] = useState<string>('')
+  const [hour, setHour] = useState<string>('')
+  const [minutes, setMinutes] = useState<string>('')
+
+  const handleChangeDateTimeState = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    setState: React.Dispatch<React.SetStateAction<string>>
+  ): void => {
+    setState(e.target.value)
+  }
+  // --------------------- ここまで期日関係 end -----------------------
+  // --------------------- ここから新タスク関係 start -----------------------
+  // 追加されるタスクのstate
+  const [inputValue, setInputValue] = useState<string>("");
+
+  // 削除ボタンでtasks削除
+  const handleDelete = (id: number): void => {
+    const newTasks = tasks.filter((t) => t.id !== id)
+    setTasks(newTasks)
+  }
+
+  // 新しいTaskの登録
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+
+    // 新しいTaskを作成
+    const newTask: Task = {
+      // 現在のUNIX時間ならidは被らない
+      id: createUnixTime(),
+      content: inputValue,
+      // [ToDo]期日を反映させる
+      dueDate: createDueTime([year, month, date, hour, minutes]),
+      check: false,
+    };
+
+    // スプレッド構文
+    setTasks([newTask, ...tasks])
+    setInputValue("")
+    console.log(tasks)
+
+    // 終わったら期日の各stateを初期化
+    setYear("")
+    setMonth("")
+    setDate("")
+    setHour("")
+    setMinutes("")
+  }
+
+  // フォームの変更を検知
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
+  }
+
+
+  // --------------------- ここまで新タスク関係 end -------------------------
 
   return (
     <div>
       <p>Home</p>
+      <div>
+        <SubmitForm
+          inputValue={inputValue}
+          dateTimeStates={[year, month, date, hour, minutes]}
+          setDateTimeStates={[setYear, setMonth, setDate, setHour, setMinutes]}
+          onSubmit={(e) => handleSubmit(e)}
+          onChange={(e) => handleChange(e)}
+          onChangeDateTimeState={handleChangeDateTimeState}
+        />
+      </div>
+      <p>
+        {year} {month} {date} {hour} {minutes}
+      </p>
+      <div style={{textAlign: "center", margin: "auto"}}>
+      {
+          tasks.map(task => {
+          // return 付けないとエラー発生するから注意
+          return (
+          // 期日設定の有無でスタイル変更
+          <p key={task.id} style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}>
+            {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
+            <input type="checkbox" onChange={() => handleCheck(task.id, task.check)} />
+            {/* checkプロパティの値によってスタイル変更 */}
+              <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
+              {/* tsだと () => method の形にしないとエラーが出る */}
+              <input type='button' value="del" onClick={() => handleDelete(task.id)} /><br />
+              <span>期日: {dateAp(task.dueDate)}</span>
+          </p>
+          )
+        })
+      }
+      </div>
       <Link to="/example">
         Example
       </Link>

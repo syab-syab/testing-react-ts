@@ -17,11 +17,10 @@ const Example = () => {
   const getTask: any  = localStorage.getItem("test-task")
 
   // なぜこの型定義で成功したのかいまいちわかってないので後日チェック
-  // const modiTask: Array<Task> = JSON.parse(getTask)
   const modiTask: Array<Task> = JSON.parse(getTask)
 
   // タスクのstate
-  const [tasks, setTasks] = useState< Array<Task>>(modiTask)
+  const [tasks, setTasks] = useState<Array<Task>>(modiTask)
 
   // checkの値を編集
   const handleCheck = (id: number, check: boolean): void => {
