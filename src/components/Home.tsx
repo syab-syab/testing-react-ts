@@ -112,9 +112,10 @@ const Home = () =>  {
     };
 
     // スプレッド構文
-    setTasks([newTask, ...tasks])
+    const tmpTasks: Task[] = [newTask, ...tasks]
+    setTasks(tmpTasks)
     // このsetItemだけ特殊(スプレッド構文のせい)
-    localStorage.setItem(tasksKey, JSON.stringify(tasks))
+    localStorage.setItem(tasksKey, JSON.stringify(tmpTasks))
     setInputValue("")
     console.log(tasks)
 
