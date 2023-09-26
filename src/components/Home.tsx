@@ -9,27 +9,28 @@ import SubmitForm from './SubmitForm';
 
 const Home = () =>  {
 
-  // ----------------------- 念のためExample.tsxより --------------------
-  // 必要ないかもしれんけど一応型定義
-  // AllTaskにしたいけどエラーが出る
-  // const testTask: Array<Task> = testData['test-data']
-  // localStorage.setItem("test-task", JSON.stringify(testTask))
+  // taskのデータを格納するキー
+  const tasksKey = "local-task"
 
-  // string型だとエラーになるからやむを得ずanyにした
-  // const getTask: any  = localStorage.getItem("test-task")
+  // tasksに格納する用の変数
+  let localTasks: Array<Task> | Array<any> = []
 
-  // なぜこの型定義で成功したのかいまいちわかってないので後日チェック
-  // const modiTask: Array<Task> = JSON.parse(getTask)
-
-  // タスクのstate
-  // const [tasks, setTasks] = useState<Array<Task>>(modiTask)
-
-  // ----------------------- 念のためExample.tsxより --------------------
+  // localStorageに何も入っていなければからの配列を格納しておく
+  if(!(localStorage.getItem(tasksKey))) {
+    localStorage.setItem(tasksKey, "")
+    localTasks = []
+  } else {
+    const tmp: string | any = localStorage.getItem(tasksKey)
+    localTasks = JSON.parse(tmp)
+  }
 
   // タスクのstate
-  const [tasks, setTasks] = useState<Array<Task>>([])
+  const [tasks, setTasks] = useState<Array<Task> | Array<any>>(localTasks)
 
   // [ToDo] tasksをローカルストレージに保存できるようにする
+  // tasksにローカルに保存されているtaskデータを格納する
+  // もしローカルになければどうするか？
+
 
   // checkの値を編集
   const handleCheck = (id: number, check: boolean): void => {
@@ -40,6 +41,8 @@ const Home = () =>  {
       return t
     })
     setTasks(newTasks)
+    // setTasksの後に必ずsetItemを行う
+    localStorage.setItem(tasksKey, JSON.stringify(newTasks))
   }
 
   // 期日を表示
@@ -90,6 +93,8 @@ const Home = () =>  {
   const handleDelete = (id: number): void => {
     const newTasks = tasks.filter((t) => t.id !== id)
     setTasks(newTasks)
+    // setTasksの後に必ずsetItemを行う
+    localStorage.setItem(tasksKey, JSON.stringify(newTasks))
   }
 
   // 新しいTaskの登録
@@ -108,8 +113,11 @@ const Home = () =>  {
 
     // スプレッド構文
     setTasks([newTask, ...tasks])
+    // このsetItemだけ特殊(スプレッド構文のせい)
+    localStorage.setItem(tasksKey, JSON.stringify(tasks))
     setInputValue("")
     console.log(tasks)
+
 
     // 終わったら期日の各stateを初期化
     setYear("")
@@ -151,7 +159,7 @@ const Home = () =>  {
           // 期日設定の有無でスタイル変更
           <p key={task.id} style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}>
             {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
-            <input type="checkbox" onChange={() => handleCheck(task.id, task.check)} />
+            <input type="checkbox" onChange={() => handleCheck(task.id, task.check)} checked={task.check ? true : false} />
             {/* checkプロパティの値によってスタイル変更 */}
               <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
               {/* tsだと () => method の形にしないとエラーが出る */}
