@@ -17,8 +17,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <h2>React TypeScript test</h2>
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
