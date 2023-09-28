@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import Home from './components/Home';
 import Example from './components/Example';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // [ToDo]
 // ・ローカルストレージ
