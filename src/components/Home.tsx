@@ -152,7 +152,8 @@ const Home = () =>  {
       <p>
         {year} {month} {date} {hour} {minutes}
       </p>
-      <div style={{textAlign: "center", margin: "auto"}}>
+      {/* [ToDo] タスクをflex-boxで良い感じにして、レスポンシブ対応させる。画面を小さくしたら一列にすること */}
+      <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
       {
           tasks.map(task => {
           // return 付けないとエラー発生するから注意
