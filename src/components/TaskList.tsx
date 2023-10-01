@@ -9,11 +9,11 @@ import checkDueDate from '../functions/checkDueDate'
 type Props = {
   tasks: Array<Task>
   // int と boolean を渡す
-  // onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-  // onClick: (e: React.MouseEventHandler<HTMLSelectElement>) => void
+  onChange: (id: number, check: boolean) => void
+  onClick: (id: number) => void
 }
 
-const taskList = (props: Props) => {
+const TaskList = (props: Props) => {
   return (
     <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
     {
@@ -23,11 +23,11 @@ const taskList = (props: Props) => {
         // 期日設定の有無でスタイル変更
         <p key={task.id} style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}>
           {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
-          {/* <input type="checkbox" onChange={(e) => props.onChange(e)} checked={task.check ? true : false} /> */}
+          <input type="checkbox" onChange={() => props.onChange(task.id, task.check)} checked={task.check ? true : false} />
           {/* checkプロパティの値によってスタイル変更 */}
             <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
             {/* tsだと () => method の形にしないとエラーが出る */}
-            {/* <input type='button' value="del" onClick={(task) => props.onClick(task.id)} /><br /> */}
+            <input type='button' value="del" onClick={() => props.onClick(task.id)} /><br />
             <span>メモ: {longSentenceCut(task.memo)}</span><br />
             <span>期日: {showDueDate(task.dueDate)}</span>
         </p>
@@ -38,4 +38,4 @@ const taskList = (props: Props) => {
   )
 }
 
-export default taskList
+export default TaskList
