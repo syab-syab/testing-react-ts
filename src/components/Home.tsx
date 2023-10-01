@@ -87,7 +87,10 @@ const Home = () =>  {
   // --------------------- ここまで期日関係 end -----------------------
   // --------------------- ここから新タスク関係 start -----------------------
   // 追加されるタスクのstate
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("")
+
+  // 追加されるmemoのstate
+  const [inputMemo, setInputMemo] = useState<string>("")
 
   // 削除ボタンでtasks削除
   const handleDelete = (id: number): void => {
@@ -108,6 +111,7 @@ const Home = () =>  {
       content: inputValue,
       // [ToDo]期日を反映させる
       dueDate: createDueTime([year, month, date, hour, minutes]),
+      memo: inputMemo,
       check: false,
     };
 
@@ -129,10 +133,14 @@ const Home = () =>  {
   }
 
   // フォームの変更を検知
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const inputValueHandleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
   }
 
+    // inputMemo用
+    const inputMemoHandleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+      setInputMemo(e.target.value)
+    }
 
   // --------------------- ここまで新タスク関係 end -------------------------
 
@@ -144,15 +152,19 @@ const Home = () =>  {
           inputValue={inputValue}
           dateTimeStates={[year, month, date, hour, minutes]}
           setDateTimeStates={[setYear, setMonth, setDate, setHour, setMinutes]}
+          inputMemo={inputMemo}
           onSubmit={(e) => handleSubmit(e)}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => inputValueHandleChange(e)}
           onChangeDateTimeState={handleChangeDateTimeState}
+          onChangeMemo={(e) => inputMemoHandleChange(e)}
         />
       </div>
       <p>
         {year} {month} {date} {hour} {minutes}
       </p>
       {/* [ToDo] タスクをflex-boxで良い感じにして、レスポンシブ対応させる。画面を小さくしたら一列にすること */}
+      {/* [ToDo] 余りに文が長ければ省略すること。省略した文は後述のポップアップ表示で全文表示させる */}
+      {/* [ToDp] タスクをクリックしたらポップアップを表示する */}
       <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
       {
           tasks.map(task => {
@@ -166,7 +178,7 @@ const Home = () =>  {
               <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
               {/* tsだと () => method の形にしないとエラーが出る */}
               <input type='button' value="del" onClick={() => handleDelete(task.id)} /><br />
-              <span>メモ: 未実装だから後でやること</span><br />
+              <span>メモ: {task.memo}</span><br />
               <span>期日: {dateAp(task.dueDate)}</span>
           </p>
           )

@@ -5,9 +5,11 @@ type SubmitProps = {
   inputValue: string
   dateTimeStates: string[]
   setDateTimeStates: React.Dispatch<React.SetStateAction<string>>[]
+  inputMemo: string
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onChangeDateTimeState: (e: React.ChangeEvent<HTMLSelectElement>, setState: React.Dispatch<React.SetStateAction<string>>) => void
+  onChangeMemo: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 // [ToDo]以下のものを受け取れるようにする
@@ -41,6 +43,13 @@ const SubmitForm = (props: SubmitProps) => {
             props.setDateTimeStates[4],
           ]}
           onChange={props.onChangeDateTimeState}
+        />
+        <br />
+        <input
+          type="text"
+          onChange={(e) => props.onChangeMemo(e)}
+          // className="inputText"
+          value={props.inputMemo}
         />
         <br />
         <input
