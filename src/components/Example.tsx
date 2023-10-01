@@ -5,6 +5,8 @@ import createUnixTime from '../functions/createUnixTime';
 import createDueTime from '../functions/createDueTime';
 import testData from '../data/test-data.json'
 import SubmitForm from './SubmitForm';
+import longSentenceCut from '../functions/longSentenceCut';
+import taskList from './TaskList';
 
 const Example = () => {
 
@@ -128,6 +130,7 @@ const Example = () => {
   // --------------------- ここまで新タスク関係 end -------------------------
 
 
+
   return (
     <div>
       <p>Example</p>
@@ -160,13 +163,19 @@ const Example = () => {
               <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
               {/* tsだと () => method の形にしないとエラーが出る */}
               <input type='button' value="del" onClick={() => handleDelete(task.id)} /><br />
-              <span>メモ: {task.memo}</span><br />
+              <span>メモ: {longSentenceCut(task.memo)}</span><br />
               <span>期日: {dateAp(task.dueDate)}</span>
           </p>
           )
         })
       }
       </div>
+      {/* [ToDo] TaskListに渡すプロパティの型を修正する */}
+      {/* <taskList
+        tasks={tasks}
+        onChange={handleCheck(e)}
+        onClick={handleDelete(e)}
+      /> */}
       <Link to='/'>
         homeへ戻る
       </Link>
