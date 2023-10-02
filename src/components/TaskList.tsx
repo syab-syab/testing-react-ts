@@ -3,6 +3,9 @@ import longSentenceCut from '../functions/longSentenceCut'
 import showDueDate from '../functions/showDueDate'
 import { Task } from '../types/All.types'
 import checkDueDate from '../functions/checkDueDate'
+// [ToDo]react-modalのエラーを何とかする
+//        もしTypeScript環境で使えないなら代案を考える
+// import Modal from "react-modal";
 
 // ExampleとHomeから切り出したTaskのリスト
 
@@ -14,6 +17,7 @@ type Props = {
 }
 
 const TaskList = (props: Props) => {
+  // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
     <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
     {
