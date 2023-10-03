@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import longSentenceCut from '../functions/longSentenceCut'
 import showDueDate from '../functions/showDueDate'
 import { Task } from '../types/All.types'
 import checkDueDate from '../functions/checkDueDate'
 // [ToDo]react-modalのエラーを何とかする
 //        もしTypeScript環境で使えないなら代案を考える
-// import Modal from "react-modal";
+import Modal from "react-modal";
 
 // ExampleとHomeから切り出したTaskのリスト
 
@@ -17,6 +17,23 @@ type Props = {
 }
 
 const TaskList = (props: Props) => {
+  const [aboutIsOpen, setAboutIsOpen] = useState(false)
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      padding: 0,
+    },
+  }
+
+  const toggleModal = () => {
+    setAboutIsOpen(!aboutIsOpen);
+  }
   // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
     <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
@@ -25,7 +42,21 @@ const TaskList = (props: Props) => {
         // return 付けないとエラー発生するから注意
         return (
         // 期日設定の有無でスタイル変更
-        <p key={task.id} style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}>
+        <p
+          key={task.id}
+          style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
+          onClick={toggleModal}
+        >
+        <Modal
+          isOpen={aboutIsOpen}
+          style={customStyles}
+          onRequestClose={toggleModal}
+          ariaHideApp={false}
+          contentLabel="Example Modal"
+        >
+          {/* <About func={toggleModal} /> */}
+          <button onClick={toggleModal}>閉じる</button>
+        </Modal>
           {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
           <input type="checkbox" onChange={() => props.onChange(task.id, task.check)} checked={task.check ? true : false} />
           {/* checkプロパティの値によってスタイル変更 */}
