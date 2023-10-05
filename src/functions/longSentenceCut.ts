@@ -5,8 +5,8 @@ const longSentenceCut = (val: string): string => {
   if (val.length <= limit) {
     return val
   } else {
-    // return val.substring(0, limit) + "..."
-    return val.substring(0, limit)
+    return val.substring(0, limit) + "..."
+    // return val.substring(0, limit)
   }
 }
 

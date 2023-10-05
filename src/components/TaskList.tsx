@@ -5,7 +5,7 @@ import { Task } from '../types/All.types'
 import checkDueDate from '../functions/checkDueDate'
 // react-modalは使わない
 // 自力でモーダルを作れそう
-// [ToDo]モーダル以外の手を考える
+// [ToDo]confirmで代用する
 
 // ExampleとHomeから切り出したTaskのリスト
 
@@ -31,9 +31,10 @@ const TaskList = (props: Props) => {
   //   },
   // }
 
-  // const toggleModal = () => {
-  //   setIsOpen(!isOpen);
-  // }
+  const toggleModal = (val: Task) => {
+    // setIsOpen(!isOpen);
+    window.confirm(`内容: ${val.content}\nメモ: ${val.memo.length > 0 ? val.memo : "無し"}\n期限: ${showDueDate(val.dueDate)}`)
+  }
   // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
     <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
@@ -45,7 +46,7 @@ const TaskList = (props: Props) => {
         <p
           key={task.id}
           style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
-          // onClick={toggleModal}
+          onClick={() => toggleModal(task)}
         >
           {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
           <input type="checkbox" onChange={() => props.onChange(task.id, task.check)} checked={task.check ? true : false} />
@@ -53,10 +54,12 @@ const TaskList = (props: Props) => {
           <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
           {/* tsだと () => method の形にしないとエラーが出る */}
           <input type='button' value="del" onClick={() => props.onClick(task.id)} /><br />
-          <span onClick={() => alert(task.memo)}>メモ: {longSentenceCut(task.memo)}</span><br />
+          <span>メモ: {longSentenceCut(task.memo)}</span><br />
           <span>期日: {showDueDate(task.dueDate)}</span>
           {/* ここにモーダルのソースコード */}
-
+          {/* <div style={{ display : isOpen ? 'block' : 'none'}}>
+            {task.content}
+          </div> */}
         </p>
         )
       })
