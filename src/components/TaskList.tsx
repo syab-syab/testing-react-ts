@@ -4,6 +4,9 @@ import showDueDate from '../functions/showDueDate'
 import { Task } from '../types/All.types'
 import checkDueDate from '../functions/checkDueDate'
 import { Button } from 'react-bootstrap';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import Card from 'react-bootstrap/Card';
 // react-modalは使わない
 // 自力でモーダルを作れそう
 // [ToDo]confirmで代用する
@@ -50,32 +53,37 @@ const TaskList = (props: Props) => {
   }
   // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
-    <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
+    // <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
+    <div>
     {
         props.tasks.map(task => {
         // return 付けないとエラー発生するから注意
         return (
         // 期日設定の有無でスタイル変更
-        <p
-          key={task.id}
-          style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
-          onClick={() => toggleModal(task)}
-        >
+        // <p
+        //   key={task.id}
+        //   style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
+        //   onClick={() => toggleModal(task)}
+        // >
+        <Card key={task.id} className="text-center">
           {/* checkプロパティの値によってスタイル変更 */}
-          <span>{task.content}</span>
+          {/* <span>{task.content}</span> */}
+          <Card.Body>
+            <Card.Title className="me-auto">{task.content}</Card.Title>
+            <Card.Text className="text-muted">メモ: {longSentenceCut(task.memo)}</Card.Text>
+            <Button onClick={() => toggleModal(task)} variant="primary">詳細</Button>
+          </Card.Body>
           {/* tsだと () => method の形にしないとエラーが出る */}
-          {/* <input type='button' value="del" onClick={() => props.onClick(task.id)} /><br /> */}
-          <Button variant="danger" onClick={() => props.onClick(task.id)}>詳細</Button><br />
-          <span>メモ: {longSentenceCut(task.memo)}</span><br />
-          <span>期日: {showDueDate(task.dueDate)}</span>
-          {/* ここにモーダルのソースコード */}
-          {/* <div style={{ display : isOpen ? 'block' : 'none'}}>
-            {task.content}
-          </div> */}
-        </p>
+          {/* <Button variant="danger" onClick={() => props.onClick(task.id)}>詳細</Button><br /> */}
+          {/* <span>メモ: {longSentenceCut(task.memo)}</span><br /> */}
+          {/* <span>期日: {showDueDate(task.dueDate)}</span> */}
+          <Card.Footer>期日: {showDueDate(task.dueDate)}</Card.Footer>
+        </Card>
+        // </p>
         )
       })
     }
+    {/* </div> */}
     </div>
   )
 }
