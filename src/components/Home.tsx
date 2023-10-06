@@ -34,19 +34,6 @@ const Home = () =>  {
   // もしローカルになければどうするか？
 
 
-  // checkの値を編集
-  const handleCheck = (id: number, check: boolean): void => {
-    const newTasks = tasks.map((t) => {
-      if (t.id === id) {
-        t.check = !check
-      }
-      return t
-    })
-    setTasks(newTasks)
-    // setTasksの後に必ずsetItemを行う
-    localStorage.setItem(tasksKey, JSON.stringify(newTasks))
-  }
-
   // 期日を表示
   const dateAp = (unix: string): string => {
     if (!unix) {
@@ -114,7 +101,6 @@ const Home = () =>  {
       // [ToDo]期日を反映させる
       dueDate: createDueTime([year, month, date, hour, minutes]),
       memo: inputMemo,
-      check: false,
     };
 
     // スプレッド構文
@@ -186,7 +172,6 @@ const Home = () =>  {
       {/* [ToDo] 不安なので↑の原形は消さない */}
       <TaskList
         tasks={tasks}
-        onChange={handleCheck}
         onClick={handleDelete}
       />
       <Link to="/example">

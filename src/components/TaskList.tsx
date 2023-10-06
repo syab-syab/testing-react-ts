@@ -3,6 +3,7 @@ import longSentenceCut from '../functions/longSentenceCut'
 import showDueDate from '../functions/showDueDate'
 import { Task } from '../types/All.types'
 import checkDueDate from '../functions/checkDueDate'
+import { Button } from 'react-bootstrap';
 // react-modalは使わない
 // 自力でモーダルを作れそう
 // [ToDo]confirmで代用する
@@ -12,7 +13,7 @@ import checkDueDate from '../functions/checkDueDate'
 type Props = {
   tasks: Array<Task>
   // int と boolean を渡す
-  onChange: (id: number, check: boolean) => void
+  // onChange: (id: number, check: boolean) => void
   onClick: (id: number) => void
 }
 
@@ -60,12 +61,11 @@ const TaskList = (props: Props) => {
           style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
           onClick={() => toggleModal(task)}
         >
-          {/* チェックボックスのチェックの有無でデータのプロパティ変更 */}
-          <input type="checkbox" onChange={() => props.onChange(task.id, task.check)} checked={task.check ? true : false} />
           {/* checkプロパティの値によってスタイル変更 */}
-          <span style={{textDecoration: task.check ? 'line-through' : 'none'}}>{task.content}</span>
+          <span>{task.content}</span>
           {/* tsだと () => method の形にしないとエラーが出る */}
-          <input type='button' value="del" onClick={() => props.onClick(task.id)} /><br />
+          {/* <input type='button' value="del" onClick={() => props.onClick(task.id)} /><br /> */}
+          <Button variant="danger" onClick={() => props.onClick(task.id)}>詳細</Button><br />
           <span>メモ: {longSentenceCut(task.memo)}</span><br />
           <span>期日: {showDueDate(task.dueDate)}</span>
           {/* ここにモーダルのソースコード */}

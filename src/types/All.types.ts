@@ -3,7 +3,7 @@ export type Task = {
   content: string
   dueDate: string
   memo: string
-  check: boolean
+  // check: boolean
 }
 
 export type AllTask = {
