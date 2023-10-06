@@ -33,7 +33,19 @@ const TaskList = (props: Props) => {
 
   const toggleModal = (val: Task) => {
     // setIsOpen(!isOpen);
-    window.confirm(`内容: ${val.content}\nメモ: ${val.memo.length > 0 ? val.memo : "無し"}\n期限: ${showDueDate(val.dueDate)}`)
+    const result = window.confirm(`
+        内容: ${val.content}\n
+        メモ: ${val.memo.length > 0 ? val.memo : "無し"}\n
+        期限: ${showDueDate(val.dueDate)}\n
+        ----------------------------------\n
+        タスクを達成しましたか？
+      `)
+    if (result) {
+      alert("おめでとう！")
+      props.onClick(val.id)
+    } else {
+      alert("引き続き頑張って！")
+    }
   }
   // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
