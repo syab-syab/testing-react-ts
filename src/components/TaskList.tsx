@@ -54,7 +54,8 @@ const TaskList = (props: Props) => {
   // [ToDo] 個別のTaskをクリックしたらモーダルウィンドウが出るようにする
   return (
     // <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
-    <div>
+    <div className='
+    '>
     {
         props.tasks.map(task => {
         // return 付けないとエラー発生するから注意
@@ -65,11 +66,16 @@ const TaskList = (props: Props) => {
         //   style={{borderBottom: task.dueDate ? "1rem solid green" : "", width: "auto", background: checkDueDate(task.dueDate) ? "rgba(255, 255, 128, .5)" : "gray"}}
         //   onClick={() => toggleModal(task)}
         // >
-        <Card key={task.id} className="text-center">
+        <Card key={task.id} className="
+          w-75
+          mb-3
+          mx-auto
+        ">
           {/* checkプロパティの値によってスタイル変更 */}
           {/* <span>{task.content}</span> */}
           <Card.Body>
             <Card.Title className="me-auto">{task.content}</Card.Title>
+            {/* [ToDo]メモをポップオーバーにする */}
             <Card.Text className="text-muted">メモ: {longSentenceCut(task.memo)}</Card.Text>
             <Button onClick={() => toggleModal(task)} variant="primary">詳細</Button>
           </Card.Body>

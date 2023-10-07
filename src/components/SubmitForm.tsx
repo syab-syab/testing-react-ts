@@ -17,7 +17,7 @@ type SubmitProps = {
 const SubmitForm = (props: SubmitProps) => {
 
   return (
-    <div>
+    <div className='p-2'>
       {/* 新しいTaskの作成フォーム */}
       <form onSubmit={(e) => props.onSubmit(e)}>
         <div className='input-group mb-3'>
@@ -36,7 +36,18 @@ const SubmitForm = (props: SubmitProps) => {
             placeholder='タスク名'
           />
         </div>
-
+        <div className="input-group mb-3">
+          <span className="input-group-text" id="memo">メモ(任意)</span>
+          <input
+            type="text"
+            onChange={(e) => props.onChangeMemo(e)}
+            className="form-control"
+            value={props.inputMemo}
+            placeholder='メモ'
+            aria-label='メモ'
+            aria-describedby='memo'
+          />
+        </div>
 
         <br />
         <SelectDateTime
@@ -57,25 +68,16 @@ const SubmitForm = (props: SubmitProps) => {
           ]}
           onChange={props.onChangeDateTimeState}
         />
-        <div className="input-group mb-3">
-        <span className="input-group-text" id="memo">メモ(任意)</span>
+
+        <br />
+        <div className="d-grid gap-2">
           <input
-            type="text"
-            onChange={(e) => props.onChangeMemo(e)}
-            className="form-control"
-            value={props.inputMemo}
-            placeholder='メモ'
-            aria-label='メモ'
-            aria-describedby='memo'
+            type="submit"
+            value="追加"
+            className="btn btn-outline-dark"
           />
         </div>
 
-        <br />
-        <input
-          type="submit"
-          value="追加"
-          className="btn btn-outline-dark"
-        />
       </form>
     </div>
   )
