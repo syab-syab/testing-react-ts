@@ -7,6 +7,7 @@ import testData from '../data/test-data.json'
 import SubmitForm from './SubmitForm';
 import longSentenceCut from '../functions/longSentenceCut';
 import TaskList from './TaskList';
+import { Button } from 'react-bootstrap';
 
 const Example = () => {
 
@@ -118,22 +119,29 @@ const Example = () => {
 
   // --------------------- ここまで新タスク関係 end -------------------------
 
+  // --------------------- モーダル ----------------------------------------
+  const [show, setShow] = useState<boolean>(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
       <p>Example</p>
       <p>使用例</p>
       <div>
+        <Button onClick={handleShow}>新しいタスク</Button>
         <SubmitForm
           inputValue={inputValue}
           dateTimeStates={[year, month, date, hour, minutes]}
           setDateTimeStates={[setYear, setMonth, setDate, setHour, setMinutes]}
           inputMemo={inputMemo}
+          modalShow={show}
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => inputValueHandleChange(e)}
           onChangeDateTimeState={handleChangeDateTimeState}
           onChangeMemo={(e) => inputMemoHandleChange(e)}
+          onHide={handleClose}
         />
       </div>
       {/* [ToDo] タスクをflex-boxで良い感じにして、レスポンシブ対応させる。画面を小さくしたら一列にすること */}

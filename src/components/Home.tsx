@@ -7,6 +7,7 @@ import createDueTime from '../functions/createDueTime';
 import SubmitForm from './SubmitForm';
 import longSentenceCut from '../functions/longSentenceCut';
 import TaskList from './TaskList';
+import { Button } from 'react-bootstrap';
 
 
 const Home = () =>  {
@@ -132,19 +133,28 @@ const Home = () =>  {
 
   // --------------------- ここまで新タスク関係 end -------------------------
 
+    // --------------------- モーダル ----------------------------------------
+    const [show, setShow] = useState<boolean>(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
   return (
     <div>
       <p>Home</p>
       <div>
+      <Button onClick={handleShow}>新しいタスク</Button>
         <SubmitForm
           inputValue={inputValue}
           dateTimeStates={[year, month, date, hour, minutes]}
           setDateTimeStates={[setYear, setMonth, setDate, setHour, setMinutes]}
           inputMemo={inputMemo}
+          modalShow={show}
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => inputValueHandleChange(e)}
           onChangeDateTimeState={handleChangeDateTimeState}
           onChangeMemo={(e) => inputMemoHandleChange(e)}
+          onHide={handleClose}
         />
       </div>
       {/* [ToDo] TaskListがちょっと不安なので色々試してみる */}
