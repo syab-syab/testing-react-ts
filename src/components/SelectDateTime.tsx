@@ -27,7 +27,8 @@ const SelectDateTime = (props: Props) => {
   )
 
   return (
-    <div>
+    <div className='mb-3 '>
+      <label className='form-label'>期日(任意)</label>
       {/* 年が未選択なら月を選ばせない */}
       <SelectYear onChange={(e) => props.onChange(e, props.setStates[0])} year={props.states[0]}/>
       {/* 月が未選択なら日を選ばせない */}

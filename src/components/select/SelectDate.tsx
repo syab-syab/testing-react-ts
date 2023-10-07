@@ -49,7 +49,11 @@ const SelectDate = (props: DateProps) => {
 
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.month ? false : true} >
+      <select
+        onChange={(e) => props.onChange(e)}
+        disabled={props.month ? false : true}
+        className='form-select'
+      >
         <option value="">日を選択</option>
         {
           days().map((d) => {

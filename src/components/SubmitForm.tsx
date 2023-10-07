@@ -1,6 +1,7 @@
 import React from 'react'
 import SelectDateTime from './SelectDateTime'
 
+
 type SubmitProps = {
   inputValue: string
   dateTimeStates: string[]
@@ -19,12 +20,24 @@ const SubmitForm = (props: SubmitProps) => {
     <div>
       {/* 新しいTaskの作成フォーム */}
       <form onSubmit={(e) => props.onSubmit(e)}>
-        <input
-          type="text"
-          onChange={(e) => props.onChange(e)}
-          className="inputText"
-          value={props.inputValue}
-        />
+        <div className='input-group mb-3'>
+          <span className="input-group-text" id="task-name">
+            タスク名(必須)
+          </span>
+          <input
+            type="text"
+            onChange={(e) => props.onChange(e)}
+            className="form-control"
+            id='flaotingTask'
+            value={props.inputValue}
+
+            aria-label="タスク名(必須)"
+            aria-describedby="task-name"
+            placeholder='タスク名'
+          />
+        </div>
+
+
         <br />
         <SelectDateTime
           states={[
@@ -44,18 +57,24 @@ const SubmitForm = (props: SubmitProps) => {
           ]}
           onChange={props.onChangeDateTimeState}
         />
-        <br />
-        <input
-          type="text"
-          onChange={(e) => props.onChangeMemo(e)}
-          // className="inputText"
-          value={props.inputMemo}
-        />
+        <div className="input-group mb-3">
+        <span className="input-group-text" id="memo">メモ(任意)</span>
+          <input
+            type="text"
+            onChange={(e) => props.onChangeMemo(e)}
+            className="form-control"
+            value={props.inputMemo}
+            placeholder='メモ'
+            aria-label='メモ'
+            aria-describedby='memo'
+          />
+        </div>
+
         <br />
         <input
           type="submit"
-          value="作成"
-          className="submitButton"
+          value="追加"
+          className="btn btn-outline-dark"
         />
       </form>
     </div>

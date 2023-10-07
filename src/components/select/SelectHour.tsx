@@ -17,7 +17,11 @@ const SelectHour = (props: HourProps) => {
 
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.date ? false : true}>
+      <select
+        onChange={(e) => props.onChange(e)}
+        disabled={props.date ? false : true}
+        className='form-select'
+      >
         {/* hourの場合デフォルトで0 */}
         <option value="0">時を選択</option>
         {

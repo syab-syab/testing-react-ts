@@ -21,7 +21,11 @@ const SelectYear = (props: YearProps) => {
   return (
     <div>
       {/* <select onChange={(e) => props.onChange(e)} disabled={props.appear ? false : true}> */}
-      <select onChange={(e) => props.onChange(e)} value={props.year}>
+      <select
+        onChange={(e) => props.onChange(e)}
+        value={props.year}
+        className='form-select'
+      >
         <option value="">年を選択</option>
         {
           years().map((y) => {

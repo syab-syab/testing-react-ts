@@ -17,7 +17,11 @@ const SelectMinutes = (props: MinutesProps) => {
 
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.hour ? false : true} >
+      <select
+        onChange={(e) => props.onChange(e)}
+        disabled={props.hour ? false : true}
+        className='form-select'
+      >
         {/* 秒の場合デフォルトで0 */}
         <option value="0">分を選択</option>
         {

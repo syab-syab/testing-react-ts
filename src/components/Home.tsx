@@ -147,9 +147,6 @@ const Home = () =>  {
           onChangeMemo={(e) => inputMemoHandleChange(e)}
         />
       </div>
-      <p>
-        {year} {month} {date} {hour} {minutes}
-      </p>
       {/* [ToDo] TaskListがちょっと不安なので色々試してみる */}
       {/* [ToDo] 不安なので↑の原形は消さない */}
       <TaskList

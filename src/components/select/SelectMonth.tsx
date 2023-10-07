@@ -9,7 +9,11 @@ interface MonthProps extends changeProps {
 const SelectMonth = (props: MonthProps) => {
   return (
     <div>
-      <select onChange={(e) => props.onChange(e)} disabled={props.year ? false : true}>
+      <select
+        onChange={(e) => props.onChange(e)}
+        disabled={props.year ? false : true}
+        className='form-select'
+      >
         <option value="">月を選択</option>
         <option value="1">1月</option>
         <option value="2">2月</option>
