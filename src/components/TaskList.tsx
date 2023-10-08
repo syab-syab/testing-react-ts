@@ -55,6 +55,8 @@ const TaskList = (props: Props) => {
   return (
     // <div style={{textAlign: "center", margin: "auto"}} className='d-flex justify-content-center'>
     <div className='
+      task-card-container
+      
     '>
     {
         props.tasks.map(task => {
@@ -67,12 +69,11 @@ const TaskList = (props: Props) => {
         //   onClick={() => toggleModal(task)}
         // >
         <Card key={task.id} className="
-          w-75
-          mb-3
-          mx-auto
+          task-card
+          d-inline-block
+
         ">
-          {/* checkプロパティの値によってスタイル変更 */}
-          {/* <span>{task.content}</span> */}
+
           <Card.Body>
             <Card.Title className="me-auto">{task.content}</Card.Title>
             {/* [ToDo]メモをポップオーバーにする */}
@@ -80,9 +81,6 @@ const TaskList = (props: Props) => {
             <Button onClick={() => toggleModal(task)} variant="primary">詳細</Button>
           </Card.Body>
           {/* tsだと () => method の形にしないとエラーが出る */}
-          {/* <Button variant="danger" onClick={() => props.onClick(task.id)}>詳細</Button><br /> */}
-          {/* <span>メモ: {longSentenceCut(task.memo)}</span><br /> */}
-          {/* <span>期日: {showDueDate(task.dueDate)}</span> */}
           <Card.Footer>期日: {showDueDate(task.dueDate)}</Card.Footer>
         </Card>
         // </p>

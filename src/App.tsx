@@ -15,8 +15,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  // [ToDo]こなしたタスクの数によって色を変化させる
   return (
-    <div className="App">
+    <div className="
+    App
+    ">
       <Header />
       <BrowserRouter>
         <Routes>

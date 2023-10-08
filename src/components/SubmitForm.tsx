@@ -1,7 +1,7 @@
 import React from 'react'
 import SelectDateTime from './SelectDateTime'
 import { Modal } from 'react-bootstrap'
-
+import Button from 'react-bootstrap/Button';
 
 type SubmitProps = {
   inputValue: string
@@ -82,7 +82,9 @@ const SubmitForm = (props: SubmitProps) => {
             onClick={props.onHide}
           />
         </div>
-        <p onClick={props.onHide}>閉じるボタンの代わり</p>
+        <Button onClick={props.onHide}>
+          閉じる
+        </Button>
 
       </form>
       </Modal>
